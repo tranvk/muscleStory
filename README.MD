@@ -52,14 +52,14 @@ Each list will have the following fields: user, exercise, repetitions, sets, wei
 
 ## Research Topics: 
 Integrate User Authentication: passport.js
-	* What: authentication **middleware** for Node.js
-	* Why: use to configure backend authentication
-	* How: define schema and create model, import into app.js.
-	* Pros: flexible and modular, can easily be integrated into any Express-based web app
-	* Alternatives: Google/FB/Twitter login? Not sure...
+* What: authentication **middleware** for Node.js
+* Why: use to configure backend authentication
+* How: define schema and create model, import into app.js.
+* Pros: flexible and modular, can easily be integrated into any Express-based web app
+* Alternatives: Google/FB/Twitter login? Not sure...
 Database: MongoDB with mongoose
-	* What: NoSQL database with JSON-like documents
-	* Why: scalable with strong performance
-	* Pros: I already know this from class, so it will be less work. Query language is JS instead of SQL.
-	* Alternatives: CouchDB (Document)
+* What: NoSQL database with JSON-like documents
+* Why: scalable with strong performance
+* Pros: I already know this from class, so it will be less work. Query language is JS instead of SQL.
+* Alternatives: CouchDB (Document)
 
