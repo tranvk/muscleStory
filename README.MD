@@ -1,4 +1,4 @@
-# Project Na:me: MuscleStory
+# Project Name: MuscleStory
 
 ## Overview
 Fitness Tracker with RPG Style Progression
@@ -20,7 +20,7 @@ Each list will have the following fields: user, exercise, repetitions, sets, wei
 }
 ```
 
-# Example List with Embedded Items:
+# Example List with Embedded Items
 ```
 {
   user: { //reference to a user object
@@ -44,7 +44,7 @@ Each list will have the following fields: user, exercise, repetitions, sets, wei
 
 [Link to Database Schema](src/db.js) 
 
-## User Story: 
+## User Story 
 
 1. As a non-registered user, I can register a new account with the site.
 2. As a user, I can log into the site.
@@ -53,7 +53,7 @@ Each list will have the following fields: user, exercise, repetitions, sets, wei
 5. As a user, I can view any workout list given a date.
 6. As a user, I can view a page which will show my progress so far.
 
-## Research Topics: 
+## Research Topics 
 Integrate User Authentication: passport.js
 * What: authentication **middleware** for Node.js
 * Why: use to configure backend authentication
