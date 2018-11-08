@@ -57,6 +57,8 @@ Integrate User Authentication: passport.js
 * How: define schema and create model, import into app.js.
 * Pros: flexible and modular, can easily be integrated into any Express-based web app
 * Alternatives: Google/FB/Twitter login? Not sure...
+
+
 Database: MongoDB with mongoose
 * What: NoSQL database with JSON-like documents
 * Why: scalable with strong performance
