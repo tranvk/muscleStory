@@ -1,11 +1,14 @@
+require('./db');
+
 const express = require('express');
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-require('./db');
 const User = mongoose.model('User');
 const Exercise = mongoose.model('Exercise');
 const session = require('express-session');
 const path = require('path');
+
 const app = express();
 
 
