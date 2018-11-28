@@ -1,12 +1,16 @@
 <h1> Here is your workout progress so far: </h1>
 
-{{#each exercises}}
+<ul>
+  {{#each exercises}}
 
-<p> {{exercises.name}} </p>
-<p> {{exercises.reps}} </p>
-<p> {{exercises.sets}} </p>
-<p> {{exercises.weight}} </p>
-<p> {{exercises.rpe}} </p>
-<p> {{exercises.date}} </p>
+    <li> Exercise Name: {{name}} </li>
+    <li> Number of Reps: {{reps}} </li>
+    <li> Number of Sets:{{sets}} </li>
+    <li> Weight: {{weight}} </li>
+    <li> RPE: {{rpe}} </li>
+    <li> Date: {{date}} </li>
+    <br>
 
-{{/each}}
+  {{/each}}
+
+</ul>
