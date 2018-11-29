@@ -67,36 +67,18 @@ app.post('/register', (req, res) => {
     username: req.body.username
   }), req.body.password, function(err, user) {
 
-    if (err) { //if there's a program, render the register page again
+    if (err) { //if there's a problem, render the register page again
       return res.render('register', {
         user: user
       });
     }
 
+    //authenticate using local strategy
     passport.authenticate('local')(req, res, function() {
       res.redirect('/');
     });
   });
-  //-----------------------------------------------------------------------------------------------//
-
-  //error callback with various error messages
-  const errorCallback = function(message) {
-    res.render('register', message);
-  };
-
-  //only called if registration works
-  const successCallback = function(user) {
-    //assuming new user exists'
-    auth.startAuthenticatedSession(req, user, (err) => {
-      if (err) {
-        res.redirect('/'); //redirect to home page
-      }
-    });
-
-  };
-
-  //call auth's register function with callbacks defined above
-  auth.register(req.body.username, req.body.email, req.body.password, errorCallback, successCallback);
+  
 
 });
 
@@ -113,26 +95,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 
 
   res.redirect('/');
-  /*
-  //if login doesn't work, re-render login template with error
-  const errorCallback = function(message) {
-    res.render("login", messsage);
 
-  };
-
-  // if login works
-  const successCallback = function(user) {
-    auth.startAuthenticatedSession(req, user, function(err) {
-      if (err) {
-        res.redirect('/');
-      }
-
-    });
-  };
-
-  //call auth's login function with callbacks defined above
-  auth.login(req.body.username, req.body.password, errorCallback, successCallback);
-  */
 
 });
 
@@ -143,7 +106,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 app.get('/add', (req, res) => {
 
 
-  res.render('list')
+  res.render('addWorkout')
 
 });
 
@@ -169,21 +132,6 @@ app.post('/add', (req, res) => {
 
 //---------------------------------------------------------------------------//
 
-  new Exercise({
-    name: req.body.name,
-    reps: req.body.reps,
-    sets: req.body.sets,
-    weight: req.body.weight,
-    rpe: req.body.rpe,
-    date: req.body.date
-  }).save(function(err, exercises) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/');
-
-    }
-  });
 
 });
 

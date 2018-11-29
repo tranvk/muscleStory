@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
-
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
-
 //automatically handles salting and hashing the password
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new mongoose.Schema({
 
-  username: String,
-  password: String,
+  username: {type: String, required: true, unique: true},
+  password: {type: String, required: true},
   name: String,
   weight: Number,
   height: Number,
@@ -30,7 +29,7 @@ const ExerciseSchema = new mongoose.Schema({
 
 
 //passport integration
-User.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model('User', UserSchema);
 const Exercise = mongoose.model('Exercise', ExerciseSchema);

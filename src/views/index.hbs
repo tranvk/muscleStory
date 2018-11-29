@@ -16,3 +16,12 @@
 <p> Users can have multiple lists (via references). </p>
 <br>
 <p> Each list will have the following fields: user, exercise, repetitions, sets, weight, date, RPE (rate of perceived exertion) (by embedding). </p>
+
+
+{{#if user}}
+<h3> You are currently logged in as {{user.username}} </h3>
+
+<a href = "/logout">  Logout </a>
+
+
+{{/if}}
