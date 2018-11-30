@@ -46,50 +46,116 @@ app.use(express.urlencoded({
   extended: false
 }));
 
+
+
+//custom passport strategy implementing bcrypt to encrypt password
+passport.use(new LocalStrategy(
+
+  function(username, password, done) {
+    User.findOne({
+        username: username
+      }, function(err, user) {
+
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, {
+            message: "Incorrect username."
+          });
+        }
+        if (user) {
+          bcrypt.compare(password, user.password, function(err, res)) {
+            if (err) {
+              return done(err);
+            }
+            if (res === false) {
+
+              return done(null, false);
+
+            } else {
+              return done(null, user);
+            }
+          }
+        }
+
+
+
+
+      }
+
+    });
+));
+
+
+
+
+
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //home page is login page
 app.get('/', (req, res) => {
 
 
-  res.render('index', {user: req.user});
+  res.render('index', {
+    user: req.user
+  });
 
 
 
 });
+
+
 
 app.get('/register', (req, res) => {
   res.render('register', {});
 });
 
 
+//registration form
+//user is automatically logged in after registration
 app.post('/register', (req, res) => {
 
-  User.register(new User({
-    username: req.body.username
-  }), req.body.password, function(err, user) {
+  //hash the password from request body
 
-    if (err) { //if there's a problem, render the register page again
-      return res.render('register', {
-        user: user
+  //12 salt rounds for high security
+  bcrypt.hash(req.body.password, 12, function(err, hash){
+
+    User.register(new User({
+      username: req.body.username
+    }), hash, function(err, user) {
+
+      if (err) { //if there's a problem, render the register page again
+        return res.render('register', {
+          user: user
+        });
+      }
+
+      //authenticate using local strategy
+      passport.authenticate('local')(req, res, function() {
+        res.redirect('/');
       });
-    }
-
-    //authenticate using local strategy
-    passport.authenticate('local')(req, res, function() {
-      res.redirect('/');
     });
-  });
-  
+
+  })
+
+
+
 
 });
 
 
-
+//
 app.get('/login', (req, res) => {
 
   res.render('login', {
     user: req.user
   }); //req.user contains the authenticated user
 });
+
+
 
 app.post('/login', passport.authenticate('local'), (req, res) => {
 
@@ -102,7 +168,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 
 
 
-
+//render workout form page
 app.get('/add', (req, res) => {
 
 
@@ -110,7 +176,7 @@ app.get('/add', (req, res) => {
 
 });
 
-
+//Add to list of workouts stored as property in User object
 app.post('/add', (req, res) => {
 
   var user = req.user;
@@ -130,12 +196,13 @@ app.post('/add', (req, res) => {
 
   });
 
-//---------------------------------------------------------------------------//
+  //---------------------------------------------------------------------------//
 
 
 });
 
 
+//Route to progress page that shows all recorded workouts
 app.get('/progress', (req, res) => {
 
   Exercise.find(function(err, exercises, count) {
@@ -150,6 +217,8 @@ app.get('/progress', (req, res) => {
 });
 
 
+//logout method passed to req object from passport
+//removes req.user property and clears login session
 app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
