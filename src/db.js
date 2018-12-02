@@ -1,3 +1,10 @@
+/*
+Mongoose Schema which connects express with a MongoDB database.
+@Author: Kevin Tran
+@Class: Applied Internet Technology Fall 2018
+*/
+
+
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
@@ -24,6 +31,7 @@ const UserSchema = new mongoose.Schema({
   name: String,
   weight: Number,
   height: Number,
+  goalWeight: Number,
   level: Number,
   exercises: [ExerciseSchema] //embedded document
 });

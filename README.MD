@@ -70,12 +70,16 @@ Database: MongoDB with mongoose
 
 
 ## Higher Order Functions:
-* Reduce to calculate the average pounds of force produced
-* Reduce and filter to calculate the amount of exp a workout is worth
-* Reduce to find the average amount of exp earned in a week
+* Reduce to calculate the total number of reps performed.
+* Reduce to calculate the total number of sets performed.
+* Reduce to calculate the total amount of weight lifted in a day.
+* Reduce to calculate the total volume of weight lifted.
+
+
 
 ## JS Libraries
 * Bcrypt
-* D3 
+* Validate JS
+
 ## Notes:
 * Disconnecting logs out user
