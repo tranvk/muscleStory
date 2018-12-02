@@ -75,11 +75,18 @@ Database: MongoDB with mongoose
 * Reduce to calculate the total amount of weight lifted in a day.
 * Reduce to calculate the total volume of weight lifted.
 
+## Bootstrap
+[Link to CSS](src/public/css/site.css)
 
 
-## JS Libraries
-* Bcrypt
-* Validate JS
+## Gulp + ESLint
+[Link to screen capture](src/public/images/gulp.png)
+[Link to build configuration](gulpfile.js)
+[Link to build configuration](.eslintrc.js)
+
+
+## JS Libraries - External API
+* Validate JS - 1 point
 
 ## Notes:
 * Disconnecting logs out user

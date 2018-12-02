@@ -1,39 +1,47 @@
-
 <h1> Here is your workout progress so far: </h1>
 
 
 <h2> Your total amount lifted (in pounds) is: {{totalVolume}} </h2>
 <h2> Your average RPE is: {{averageRPE}} </h2>
 
-<ul>
-  {{#each exercises}}
+<div class="container-fluid">
+  <div class="row">
+    <ul>
+      {{#each exercises}}
 
-    <li> Exercise Name: {{name}} </li>
-    <li> Number of Reps: {{reps}} </li>
-    <li> Number of Sets:{{sets}} </li>
-    <li> Weight: {{weight}} </li>
-    <li> RPE: {{rpe}} </li>
-    <li> Date: {{date}} </li>
-    <br>
+        <div class="col-sm-4">
+          <li> Exercise Name: {{name}} </li>
+          <li> Number of Reps: {{reps}} </li>
+          <li> Number of Sets:{{sets}} </li>
+          <li> Weight: {{weight}} </li>
+          <li> RPE: {{rpe}} </li>
+          <li> Date: {{date}} </li>
+          <br>
+        </div>
+      {{/each}}
 
-  {{/each}}
-
-</ul>
+    </ul>
+  </div>
+</div>
 
 <h1> Total Experience Points Earned: {{experience}} </h1>
 
-<svg class = "top-middle" width = "1000" height = "50">
-    <rect width= {{experience}} height="100" style="fill:rgb(255,244,20)" />
+<svg class="top-middle" width="1000" height="50">
+  <rect width={{experience}} height="100" style="fill:rgb(10,70,200)" />
 </svg>
 
-<h2> You are currently level: {{level}} </h2>
 
-<h2> Your height is {{height}} inches. </h2>
-<h2> Your weight is {{weight}} pounds. </h2>
+<h2 class = "progress"> You are currently level: {{level}} </h2>
+
+<h2 class = "progress"> Your height is {{height}} inches. </h2>
+<h2 class = "progress"> Your weight is {{weight}} pounds. </h2>
 
 
-<h2> Your BMI is {{bmi}}. </h2>
+<h2 class = "progress"> Your BMI is {{bmi}}. </h2>
+<h2 class = "progress"> You are {{difference}} pounds away from your goal weight </h2>
+<h2 class = "progress"> You have to eat {{dailyCals}} fewer/greater calories each day to gain/lose that amount in a month. </h2>
 
-<h3 id = "avatar-desc"> Your Character Avatar: </h3>
 
-<img src = {{icon}} class = "icon" height = "100" width = "100">
+<h3 id="avatar-desc"> Your Character Avatar: </h3>
+
+<img src={{icon}} id="icon" height="100" width="100">

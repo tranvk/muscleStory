@@ -14,7 +14,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const User = mongoose.model('User');
-const Exercise = mongoose.model('Exercise');const session = require('express-session');
+const Exercise = mongoose.model('Exercise');
+const session = require('express-session');
 const path = require('path');
 const app = express();
 const LocalStrategy = require('passport-local').Strategy;
@@ -47,10 +48,6 @@ app.use(passport.session());
 
 //public static file access
 app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-
 
 
 //validate.js: setup global constraints to be used by validate function in app.post form handler
@@ -157,9 +154,9 @@ app.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user) {
     if (user) {
       req.logIn(user, function(err) {
-        if(!err){
+        if (!err) {
           res.redirect('/');
-          }
+        }
       });
     } else {
       res.render('login', {
@@ -234,7 +231,6 @@ app.get('/progress', (req, res) => {
 
   const user = req.user; //access passport user object
 
-
   const experience = user.exercises.length * 75; //show experience bar in proportion to length of workouts completed
   const level = user.level; //user level based on length of exercises array
   let img = "";
@@ -299,8 +295,11 @@ app.get('/progress', (req, res) => {
   const averageRPE = (totalRPE['rpe'] / exerciseArray.length);
 
   //calculate body mass index
-  const bmi = (703*(user.weight/(Math.pow(user.height, 2))));
+  const bmi = (703 * (user.weight / (Math.pow(user.height, 2))));
 
+  const difference = Math.abs(user.weight - user.goalWeight);
+
+  const dailyCals = Math.floor((3500*difference)/30);
 
 
   //render progress.hbs with various template variables
@@ -315,7 +314,9 @@ app.get('/progress', (req, res) => {
     height: user.height,
     weight: user.weight,
     goalWeight: user.goalWeight,
-    bmi: bmi
+    bmi: bmi,
+    difference: difference,
+    dailyCals: dailyCals
   });
 
 
@@ -333,13 +334,22 @@ app.post('/details', (req, res) => {
 
 
   //set user.height and user.weight to the values submitted in form
-  User.updateOne({username: req.user.username}, {$set: {"height": req.body.height, "weight": req.body.weight, "goalWeight": req.body.goalWeight}}, function(err, user){
-    if (err) {throw err;}
+  User.updateOne({
+    username: req.user.username
+  }, {
+    $set: {
+      "height": req.body.height,
+      "weight": req.body.weight,
+      "goalWeight": req.body.goalWeight
+    }
+  }, function(err, user) {
+    if (err) {
+      throw err;
+    }
     console.log(user);
 
   });
 
-  console.log(req.user.height);
 
   res.redirect(301, "/progress");
 
