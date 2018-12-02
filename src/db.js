@@ -4,16 +4,6 @@ const Schema = mongoose.Schema;
 //automatically handles salting and hashing the password
 const passportLocalMongoose = require('passport-local-mongoose');
 
-const UserSchema = new mongoose.Schema({
-
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  name: String,
-  weight: Number,
-  height: Number,
-  level: Number,
-  exercises: [ExerciseSchema] //embedded document
-});
 
 const ExerciseSchema = new mongoose.Schema({
   name: String,
@@ -26,6 +16,19 @@ const ExerciseSchema = new mongoose.Schema({
     default: Date.now //activates when date field is undefined
   },
 });
+
+const UserSchema = new mongoose.Schema({
+
+  username: {type: String, required: true, unique: true},
+  password: {type: String, required: true},
+  name: String,
+  weight: Number,
+  height: Number,
+  level: Number,
+  exercises: [ExerciseSchema] //embedded document
+});
+
+
 
 
 //passport integration
@@ -55,4 +58,4 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
 }
 
 //password is password for MongoDB from part 3
-mongoose.connect(dbconf);
+mongoose.connect(dbconf, { useNewUrlParser: true });
