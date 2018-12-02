@@ -81,12 +81,16 @@ Database: MongoDB with mongoose
 
 ## Gulp + ESLint
 [Link to screen capture](src/public/images/gulp.png)
-[Link to build configuration](gulpfile.js)
-[Link to build configuration](.eslintrc.js)
+[Link to build configuration - Gulp](gulpfile.js)
+[Link to build configuration - ESLint](.eslintrc.js)
 
 
 ## JS Libraries - External API
 * Validate JS - 1 point
+[Link to use of API](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/tranvk-final-project/blob/1f23df30fe5acfeca774ee02eed30b35281bcd98/src/app.js#L54)
 
+[Link to use of API](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/tranvk-final-project/blob/1f23df30fe5acfeca774ee02eed30b35281bcd98/src/app.js#L188)
+
+[Link to demonstration](documents/validateDemonstration.gif)
 ## Notes:
 * Disconnecting logs out user

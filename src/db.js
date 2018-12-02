@@ -4,10 +4,7 @@ Mongoose Schema which connects express with a MongoDB database.
 @Class: Applied Internet Technology Fall 2018
 */
 
-
 const mongoose = require('mongoose');
-const bcrypt = require("bcrypt");
-const Schema = mongoose.Schema;
 //automatically handles salting and hashing the password
 const passportLocalMongoose = require('passport-local-mongoose');
 
