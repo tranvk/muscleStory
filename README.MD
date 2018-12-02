@@ -70,6 +70,8 @@ Database: MongoDB with mongoose
 
 
 ## Higher Order Functions:
+[Link](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/tranvk-final-project/blob/5791f0a67375f75b3d100916445d21d77c7ac339/src/app.js#L278)
+
 * Reduce to calculate the total number of reps performed.
 * Reduce to calculate the total number of sets performed.
 * Reduce to calculate the total amount of weight lifted in a day.
@@ -87,6 +89,7 @@ Database: MongoDB with mongoose
 
 ## JS Libraries - External API
 * Validate JS - 1 point
+
 [Link to use of API](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/tranvk-final-project/blob/1f23df30fe5acfeca774ee02eed30b35281bcd98/src/app.js#L54)
 
 [Link to use of API](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/tranvk-final-project/blob/1f23df30fe5acfeca774ee02eed30b35281bcd98/src/app.js#L188)
