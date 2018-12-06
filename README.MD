@@ -68,6 +68,11 @@ Database: MongoDB with mongoose
 * Pros: I already know this from class, so it will be less work. Query language is JS instead of SQL.
 * Alternatives: CouchDB (Document)
 
+## Usage Instructions:
+* First, make an account by clicking on the "Register" tab.
+* Now, you are logged in. Next, click on "Add Workout" and enter your values.
+* Click the progress tab to see your recorded workouts and player statistics.
+* Optionally, go to User Details to add your height, weight, and goal weight. This will populate new fields in your progress tab, including BMI and caloric requirements for weight gain/loss. 
 
 ## Higher Order Functions:
 [Link](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/tranvk-final-project/blob/5791f0a67375f75b3d100916445d21d77c7ac339/src/app.js#L278)
