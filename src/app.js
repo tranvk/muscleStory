@@ -119,9 +119,9 @@ app.post('/register', (req, res) => {
   //Create new user and pass in username and hashed password
   User.register(new User({
       username: req.body.username,
-      password: hash
+      password: req.body.password
     }),
-    hash,
+    req.body.password,
     function(err, user) {
       if (err) {
         console.log(err);
@@ -129,9 +129,13 @@ app.post('/register', (req, res) => {
         res.render('register', {
           message: 'Your registration information is not valid'
         });
-      } else {
+      }
+
+      else {
+
 
         passport.authenticate('local')(req, res, function() {
+          console.log("")
           res.redirect('/');
         });
       }
@@ -160,7 +164,7 @@ app.post('/login', function(req, res, next) {
       });
     } else {
       res.render('login', {
-        message: 'Your login or password is incorrect.'
+        message: 'Your username or password is incorrect.'
       });
     }
   })(req, res, next);
@@ -230,94 +234,108 @@ app.post('/add', (req, res) => {
 app.get('/progress', (req, res) => {
 
   const user = req.user; //access passport user object
-
-  const experience = user.exercises.length * 75; //show experience bar in proportion to length of workouts completed
-  const level = user.level; //user level based on length of exercises array
-  let img = "";
-
-  //load avatar based on character level
-  switch (level) {
-    case 0:
-      img = "images/slime.jpg";
-      break;
-    case 1:
-      img = "images/pig.jpg";
-      break;
-    case 2:
-      img = "images/mushroom.jpg";
-      break;
-    case 3:
-      img = "images/bluemushroom.png";
-      break;
-    case 4:
-      img = "images/stump.png";
-      break;
-    case 5:
-      img = "images/yeti.png";
-      break;
-    case 6:
-      img = "images/balrog.png";
-      break;
-    case 7:
-      img = "images/beginner.gif";
-      break;
-    case 8:
-      img = "images/warrior.png";
-      break;
-    case 9:
-      img = "images/knight.png";
-      break;
-    case 10:
-      img = "images/maxWarrior.png";
-      break;
+  if(!user){
+    res.redirect('/login');
   }
+  if (user.exercises.length == 0 || user.exercises === undefined){
+    res.redirect('/add');
+  }
+  else{
+    const experience = user.exercises.length * 75; //show experience bar in proportion to length of workouts completed
+    const level = user.level; //user level based on length of exercises array
+    let img = "";
+
+    //load avatar based on character level
+    switch (level) {
+      case 0:
+        img = "images/slime.jpg";
+        break;
+      case 1:
+        img = "images/pig.jpg";
+        break;
+      case 2:
+        img = "images/mushroom.jpg";
+        break;
+      case 3:
+        img = "images/bluemushroom.png";
+        break;
+      case 4:
+        img = "images/stump.png";
+        break;
+      case 5:
+        img = "images/yeti.png";
+        break;
+      case 6:
+        img = "images/balrog.png";
+        break;
+      case 7:
+        img = "images/beginner.gif";
+        break;
+      case 8:
+        img = "images/warrior.png";
+        break;
+      case 9:
+        img = "images/knight.png";
+        break;
+      case 10:
+        img = "images/maxWarrior.png";
+        break;
+    }
 
 
-  //use Array.reduce to calculate total volume lifted
-  const exerciseArray = user.exercises;
-  const totalReps = exerciseArray.reduce((a, b) => ({
-    reps: a.reps + b.reps
-  }));
-  const totalSets = exerciseArray.reduce((a, b) => ({
-    sets: a.sets + b.sets
-  }));
-  const totalWeight = exerciseArray.reduce((a, b) => ({
-    weight: a.weight + b.weight
-  }));
-
-  const totalVolume = (totalReps['reps'] * totalSets['sets'] * totalWeight['weight']);
+    //use Array.reduce to calculate total volume lifted
 
 
-  //calculate total and average RPE
-  const totalRPE = exerciseArray.reduce((a, b) => ({
-    rpe: a.rpe + b.rpe
-  }));
-  const averageRPE = (totalRPE['rpe'] / exerciseArray.length);
 
-  //calculate body mass index
-  const bmi = (703 * (user.weight / (Math.pow(user.height, 2))));
+    const exerciseArray = user.exercises;
 
-  const difference = Math.abs(user.weight - user.goalWeight);
+    const totalReps = exerciseArray.reduce((a, b) => ({
+      reps: a.reps + b.reps
+    }));
+    const totalSets = exerciseArray.reduce((a, b) => ({
+      sets: a.sets + b.sets
+    }));
+    const totalWeight = exerciseArray.reduce((a, b) => ({
+      weight: a.weight + b.weight
+    }));
 
-  const dailyCals = Math.floor((3500*difference)/30);
+    const totalVolume = (totalReps['reps'] * totalSets['sets'] * totalWeight['weight']);
 
 
-  //render progress.hbs with various template variables
-  res.render('progress', {
-    user: user,
-    exercises: user.exercises,
-    experience: experience,
-    level: level,
-    icon: img,
-    totalVolume: totalVolume,
-    averageRPE: averageRPE,
-    height: user.height,
-    weight: user.weight,
-    goalWeight: user.goalWeight,
-    bmi: bmi,
-    difference: difference,
-    dailyCals: dailyCals
-  });
+
+    //calculate total and average RPE
+    const totalRPE = exerciseArray.reduce((a, b) => ({
+      rpe: a.rpe + b.rpe
+    }));
+    const averageRPE = (totalRPE['rpe'] / exerciseArray.length);
+
+
+
+    //calculate body mass index
+    const bmi = (703 * (user.weight / (Math.pow(user.height, 2))));
+
+    const difference = Math.abs(user.weight - user.goalWeight);
+
+    const dailyCals = Math.floor((3500*difference)/30);
+
+
+    //render progress.hbs with various template variables
+    res.render('progress', {
+      user: user,
+      exercises: user.exercises,
+      experience: experience,
+      level: level,
+      icon: img,
+      totalVolume: totalVolume,
+      averageRPE: averageRPE,
+      height: user.height,
+      weight: user.weight,
+      goalWeight: user.goalWeight,
+      bmi: bmi,
+      difference: difference,
+      dailyCals: dailyCals
+    });
+  }
 
 
 

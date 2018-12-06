@@ -27,20 +27,29 @@
 <h1> Total Experience Points Earned: {{experience}} </h1>
 
 <svg class="top-middle" width="1000" height="50">
-  <rect width={{experience}} height="100" style="fill:rgb(10,70,200)" />
+  <rect width={{experience}} height="100" style="fill:rgb(10,70,200)"/>
 </svg>
 
 
 <h2 class = "progress"> You are currently level: {{level}} </h2>
 
+{{#if height}}
 <h2 class = "progress"> Your height is {{height}} inches. </h2>
+{{/if}}
+
+{{#if weight}}
 <h2 class = "progress"> Your weight is {{weight}} pounds. </h2>
+{{/if}}
 
 
+{{#if bmi}}
 <h2 class = "progress"> Your BMI is {{bmi}}. </h2>
 <h2 class = "progress"> You are {{difference}} pounds away from your goal weight </h2>
-<h2 class = "progress"> You have to eat {{dailyCals}} fewer/greater calories each day to gain/lose that amount in a month. </h2>
+{{/if}}
 
+{{#if goalWeight}}
+<h2 class = "progress"> You have to eat {{dailyCals}} fewer/greater calories each day to gain/lose that amount in a month. </h2>
+{{/if}}
 
 <h3 id="avatar-desc"> Your Character Avatar: </h3>
 
