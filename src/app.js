@@ -237,7 +237,7 @@ app.get('/progress', (req, res) => {
   if(user === undefined){
     res.redirect('/login');
   }
-  if (user.exercises.length == 0 || user.exercises === undefined){
+  else if (user.exercises.length == 0 || user.exercises === undefined){
     res.redirect('/add');
   }
   else{
