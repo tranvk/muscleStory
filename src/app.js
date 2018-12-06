@@ -234,7 +234,7 @@ app.post('/add', (req, res) => {
 app.get('/progress', (req, res) => {
 
   const user = req.user; //access passport user object
-  if(!user){
+  if(user === undefined){
     res.redirect('/login');
   }
   if (user.exercises.length == 0 || user.exercises === undefined){
