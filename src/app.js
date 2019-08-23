@@ -21,10 +21,8 @@ const app = express();
 const LocalStrategy = require('passport-local').Strategy;
 const validate = require('validate.js');
 
-
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
-
 
 //set SESSION_SECRET directly on host server
 app.use(session({
@@ -42,13 +40,11 @@ app.use(bodyParser.urlencoded({
 //initialize passport
 app.use(passport.initialize());
 
-
 //middleware to alter the req object and change the user value found in session id from client cookie into the true deserialized user Object
 app.use(passport.session());
 
 //public static file access
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 //validate.js: setup global constraints to be used by validate function in app.post form handler
 const constraints = {
@@ -83,38 +79,29 @@ const constraints = {
 //custom passport strategy implementing bcrypt to encrypt password
 passport.use(new LocalStrategy(User.authenticate()));
 
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 
 //GET home page with information about app
 app.get('/', (req, res) => {
 
-
   res.render('index', {
     user: req.user
   });
-
-
-
 });
-
 
 //GET Registration page
 app.get('/register', (req, res) => {
   res.render('register', {});
 });
 
-
 //registration form: storing name and hashed password and redirecting to home page after signup
 //user is automatically logged in after registration
 app.post('/register', (req, res) => {
 
-  //use sync version of bcrypt due to problems with implementing async version
+  //use sync version of bcrypt 
   //drawback: will block event loop due to CPU intensivity
   const hash = bcrypt.hashSync(req.body.password, saltRounds);
-
 
   //Create new user and pass in username and hashed password
   User.register(new User({
@@ -132,8 +119,6 @@ app.post('/register', (req, res) => {
       }
 
       else {
-
-
         passport.authenticate('local')(req, res, function() {
           console.log("")
           res.redirect('/');
@@ -141,7 +126,6 @@ app.post('/register', (req, res) => {
       }
     });
 });
-
 
 //GET the login form
 app.get('/login', (req, res) => {
@@ -170,21 +154,14 @@ app.post('/login', function(req, res, next) {
   })(req, res, next);
 });
 
-
-
 //render workout form page
 app.get('/add', (req, res) => {
-
-
   res.render('addWorkout');
-
 
 });
 
 //Add to list of workouts stored as property in User object
 app.post('/add', (req, res) => {
-
-
   const user = req.user;
 
   //validate properties of user.exercises using previously defined constraints
@@ -196,15 +173,11 @@ app.post('/add', (req, res) => {
     rpe: req.body.rpe
   }, constraints);
 
-
   //redirect to home page if there is an invalid entry in the form, and prevent it from being added to user
   if (typeof validateObject !== "undefined") {
-
     console.log(validateObject);
     res.redirect(301, '/');
-
   } else {
-
 
     //push object containing exercise details into array property 'exercises' of user
     user.exercises.push({
@@ -218,7 +191,6 @@ app.post('/add', (req, res) => {
     user.level = user.exercises.length; //set level based on number of workouts completed
 
     user.save(function(err) {
-
       if (!err) {
         res.redirect(301, '/progress');
       }
@@ -282,11 +254,7 @@ app.get('/progress', (req, res) => {
         break;
     }
 
-
     //use Array.reduce to calculate total volume lifted
-
-
-
     const exerciseArray = user.exercises;
 
     const totalReps = exerciseArray.reduce((a, b) => ({
@@ -301,15 +269,11 @@ app.get('/progress', (req, res) => {
 
     const totalVolume = (totalReps['reps'] * totalSets['sets'] * totalWeight['weight']);
 
-
-
     //calculate total and average RPE
     const totalRPE = exerciseArray.reduce((a, b) => ({
       rpe: a.rpe + b.rpe
     }));
     const averageRPE = (totalRPE['rpe'] / exerciseArray.length);
-
-
 
     //calculate body mass index
     const bmi = (703 * (user.weight / (Math.pow(user.height, 2))));
@@ -317,7 +281,6 @@ app.get('/progress', (req, res) => {
     const difference = Math.abs(user.weight - user.goalWeight);
 
     const dailyCals = Math.floor((3500*difference)/30);
-
 
     //render progress.hbs with various template variables
     res.render('progress', {
@@ -337,20 +300,16 @@ app.get('/progress', (req, res) => {
     });
   }
 
-
-
 });
 
 //GET request to details form
 app.get('/details', (req, res) => {
-
   res.render('userDetails');
 
 });
 
 app.post('/details', (req, res) => {
-
-
+  
   //set user.height and user.weight to the values submitted in form
   User.updateOne({
     username: req.user.username
@@ -368,7 +327,6 @@ app.post('/details', (req, res) => {
 
   });
 
-
   res.redirect(301, "/progress");
 
 });
@@ -379,6 +337,5 @@ app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
-
 
 app.listen(process.env.PORT || 3000);
