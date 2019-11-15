@@ -1,7 +1,6 @@
 /*
 Express server routing for the MuscleStory webapp, a fitness tracking game.
 @Author: Kevin Tran
-@Class: Applied Internet Technology Fall 2018
 */
 
 require('./db');
