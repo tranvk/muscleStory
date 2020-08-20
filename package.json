@@ -4,7 +4,7 @@
   "description": "## Overview Fitness Tracker with RPG Style Progression A web app that will allow users to record their workouts and track their progress. Once users register and sign in, they will have access to a list that they can use to add details of their exercise, such as number of repetitions performed, sets, and weight.  There will also be a personalized character feature, which will grow alongside the user. Hopefully, the avatar's growth will reflect the transformation that the user will be experiencing as they improve their fitness. The purpose of this app is to provide a fun way to help users stay on track on their physical fitness journey.",
   "main": "index.js",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "eslint": "^5.9.0",
     "express": "^4.16.4",
