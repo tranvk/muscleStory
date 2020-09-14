@@ -1,7 +1,7 @@
 # Project Name: MuscleStory
 
 ## Overview
-Fitness Tracker with RPG Style Progression
+Fitness Tracker with RPG Style Progression. <br/>
 A web app that will allow users to record their workouts and track their progress. Once users register and sign in, they will have access to a list that they can use to add details of their exercise, such as number of repetitions performed, sets, and weight.
 There will also be a personalized character feature, which will grow alongside the user. Hopefully, the avatar's growth will reflect the transformation that the user will be experiencing as they improve their fitness. The purpose of this app is to provide a fun way to help users stay on track on their physical fitness journey.
 
